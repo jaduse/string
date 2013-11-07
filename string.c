@@ -13,7 +13,7 @@ int StrLen(char *data);
 int StrIndexOf(char *data, char rexp);
 int StrLastIndexOf(char *data, char rexp);
 char* StrSubstring(char *data, int start, int end);
-char* StrReplace(char *data, char old_rexp, char new_rexp);
+void StrReplace(char *data, char old_rexp, char new_rexp);
 
 string NewString(char *data) {
 	string str;
