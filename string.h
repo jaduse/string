@@ -7,10 +7,11 @@ typedef struct STRINGS {
 } string;
 
 string NewString(char *data);
-int Len(char *data);
-int IndexOf(char *data, char rexp);
-int LastIndexOf(char *data, char rexp);
-char* Substring(char *data, int start, int end);
-
+void EditString(string *data, char *new_data);
+int StrLen(char *data);
+int StrIndexOf(char *data, char rexp);
+int StrLastIndexOf(char *data, char rexp);
+char* StrSubstring(char *data, int start, int end);
+char* StrReplace(char *data, char old_rexp, char new_rexp);
 
 #endif
