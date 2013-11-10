@@ -4,91 +4,91 @@
 /* jadus (c) 2013                                                 */
 /******************************************/
 
-
+#include <stddef.h>
 #include "string.h"
 
-string NewString(char *data);
-void EditString(string *data, char *new_data);
+string NewString();
+void StrSetdata(string *data, char *new_data);
 int StrLen(char *data);
 int StrIndexOf(char *data, char rexp);
 int StrLastIndexOf(char *data, char rexp);
 char* StrSubstring(char *data, int start, int end);
 void StrReplace(char *data, char old_rexp, char new_rexp);
 
-string NewString(char *data) {
-        string str;
-        str.data = malloc(sizeof(char) * 1024);
-        snprintf(str.data, sizeof(char) * 1024 , data);
-        str.length = StrLen(data);
-        return str;        
-        
+string NewString() {
+	string str;
+	str.data = STR_NULL;
+	str.length = -1;
+	return str;        
+       
+}
+
+void StrSetdata(string *data, char *str) {
+	size_t size = StrLen(str) * 1024;
+	data->data = malloc(size);
+	snprintf(data->data, size, str);
+	data->length = StrLen(str);
 }
 
 int StrLen(char *data) {
-        char i;
-        int len=0;
-        while((i = *(data + len)) != '\0') {
-                len++;        
-        }
-        return len;        
+	char i;
+	int len=0;
+	while((i = *(data + len)) != '\0') {
+		len++;        
+	}
+	return len;        
         
 }
 
 
 int StrIndexOf(char *data, char rexp) {
-        int index=-1;
-        int i = 0;
-        char *c;
-        for(c = data; *c; c++) {
-                if(*c == rexp) {
-                        index = i;
-                        break;
-                }
-                i++;                
-                
-        }
-        return index;
+	int index=-1;
+	int i = 0;
+	char *c;
+	for(c = data; *c; c++) {
+		if(*c == rexp) {
+			index = i;
+			break;
+		}
+	i++;                
+	}
+	return index;
         
 
 }
 
 int StrLastIndexOf(char *data, char rexp) {
-        int index=-1;
-        int i = 0;
-        char *c;
-        for(c = data; *c; c++) {
-                if(*c == rexp) {
-                        index = i;
-                }
-                i++;
-                        
-                
-        }
-        return index;
+	int index=-1;
+	int i = 0;
+	char *c;
+	for(c = data; *c; c++) {
+		if(*c == rexp) {
+			index = i;
+		}
+	i++;                        
+	}
+	return index;
         
 
 }
 
 char* StrSubstring(char *data, int start, int end) {
-        char *new = malloc(sizeof(char) * 1024);
-        int i = end - start;
-        if(i>0) {
-                memcpy(new, &data[start], i);
-                return new;
+	int i = end - start;
+	char *new = malloc(i * 1024);
+	if(i>=0) {
+		memcpy(new, &data[start], i);
+			return new;
         }
-        else
-                return NULL;
+		else
+        	return NULL;
 }
 
 void StrReplace(char *data, char old_rexp, char new_rexp) {        
-        char *i;
-        for(i=data;*i; i++) {
-                if(*i == old_rexp)
-                        *i = new_rexp;
-        }
+	char *i;
+	for(i=data;*i; i++) {
+	if(*i == old_rexp)
+		*i = new_rexp;
+	}
         
 }
 
-void EditString(string *data, char *new_data) {
-        data->data = new_data;
-} 
