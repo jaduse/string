@@ -1,7 +1,7 @@
 /******************************************/
-/* Implementation of standard String */
-/* functions in C                                                  */
-/* jadus (c) 2013                                                 */
+/* Implementation of standard String and  */
+/* string functions in C                  */
+/* jadus (c) 2013                         */
 /******************************************/
 
 #include <stddef.h>
