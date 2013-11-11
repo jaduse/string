@@ -26,7 +26,7 @@ string NewString() {
 
 int StrSetdata(string *data, char *str) {
 	size_t size = StrLen(str);
-	if((data->data = (char *)malloc(size)) == NULL)
+	if((data->data = (char *)malloc(size+1)) == NULL)
 		return 0;
 	snprintf(data->data, size, str);
 	data->length = size;
@@ -66,14 +66,20 @@ int StrLastIndexOf(char *data, char rexp) {
 }
 
 char* StrSubstring(char *data, int start, int end) {
-	int i = end - start;
-	char *new = malloc(i);
-	if(i>=0) {
+	int i = (end - start) >=0 ? end - start : 1;
+	char *new;
+
+	if((new = (char *)malloc(i + 1)) == NULL)
+		exit(1);
+	if(i>=0) {	
 		memcpy(new, &data[start], i);
-		return new;
 	}
-	else
-		return STR_NULL;
+	else {
+		snprintf(new, i, STR_NULL);
+	}
+	
+	return new;
+		
 }
 
 void StrReplace(char *data, char old_rexp, char new_rexp) {        
