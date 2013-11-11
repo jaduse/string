@@ -29,7 +29,7 @@ int StrSetdata(string *data, char *str) {
 	if((data->data = (char *)malloc(size)) == NULL)
 		return 0;
 	snprintf(data->data, size, str);
-	data->length = StrLen(str);
+	data->length = size;
 	return 1;
 }
 
