@@ -33,7 +33,7 @@ returns length of char array *data
 		result = StrLen(data);
 		```
 
-**StrIndexOf(char *data, char rexp)**
+**int StrIndexOf(char *data, char rexp)**
 -------------------------------------
 
 returns first index of character (rexp)
@@ -64,7 +64,7 @@ index to end index or return empty string represented by STR_NULL which is chara
 		new = StrSubstring(data, 1, 6);
 		```
 
-**void StrReplace(char *data, char old__rexp, char new__rexp)**
+**void StrReplace(char *data, char old_rexp, char new_rexp)**
 ----------------------------------------
 
    replace old characters with new cahracters
