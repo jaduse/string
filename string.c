@@ -66,16 +66,16 @@ int StrLastIndexOf(char *data, char rexp) {
 }
 
 char* StrSubstring(char *data, int start, int end) {
-	int i = (end - start) >=0 ? end - start : 1;
+	int size = (end - start) >=0 ? end - start : 1;
 	char *new;
 
-	if((new = (char *)malloc(i + 1)) == NULL)
-		exit(1);
-	if(i>=0) {	
-		memcpy(new, &data[start], i);
+	if((new = (char *)malloc(size + 1)) == NULL)
+		return NULL;
+	if(size > 0) {	
+		memcpy(new, &data[start], size);
 	}
 	else {
-		snprintf(new, i, STR_NULL);
+		snprintf(new, size, STR_NULL);
 	}
 	
 	return new;
