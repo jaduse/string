@@ -3,11 +3,11 @@
 #define STR_NULL "\0"
 typedef struct STRINGS {
 	char *data;
-	int length;
+	int length;	
 } string;
 
 string NewString();
-void StrSetdata(string *data, char *str);
+int StrSetdata(string *data, char *str);
 int StrLen(char *data);
 int StrIndexOf(char *data, char rexp);
 int StrLastIndexOf(char *data, char rexp);

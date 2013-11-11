@@ -1,19 +1,20 @@
 /******************************************/
 /* Implementation of standard String and  */
 /* string functions in C                  */
-/* jadus (c) 2013                         */
+/* jadus (c) 2013 - release version 0.1   */
 /******************************************/
 
 #include <stddef.h>
 #include "string.h"
 
 string NewString();
-void StrSetdata(string *data, char *new_data);
+int StrSetdata(string *data, char *new_data);
 int StrLen(char *data);
 int StrIndexOf(char *data, char rexp);
 int StrLastIndexOf(char *data, char rexp);
 char* StrSubstring(char *data, int start, int end);
 void StrReplace(char *data, char old_rexp, char new_rexp);
+void StrFree(string *data);
 
 string NewString() {
 	string str;
@@ -23,49 +24,41 @@ string NewString() {
        
 }
 
-void StrSetdata(string *data, char *str) {
-	size_t size = StrLen(str) * 1024;
-	data->data = malloc(size);
+int StrSetdata(string *data, char *str) {
+	size_t size = StrLen(str);
+	if((data->data = (char *)malloc(size)) == NULL)
+		return 0;
 	snprintf(data->data, size, str);
 	data->length = StrLen(str);
+	return 1;
 }
 
 int StrLen(char *data) {
-	char i;
-	int len=0;
-	while((i = *(data + len)) != '\0') {
-		len++;        
-	}
+	int len;
+	for(len = 0; *(data + len) != '\0'; len++);	    
 	return len;        
         
 }
 
 
 int StrIndexOf(char *data, char rexp) {
-	int index=-1;
 	int i = 0;
 	char *c;
-	for(c = data; *c; c++) {
-		if(*c == rexp) {
-			index = i;
-			break;
-		}
-	i++;                
-	}
-	return index;
+	for(c = data; *c != rexp && *c; c++, i++);	
+	if(i < StrLen(data))
+		return i;
+	
+	return -1;
         
-
 }
 
 int StrLastIndexOf(char *data, char rexp) {
 	int index=-1;
 	int i = 0;
 	char *c;
-	for(c = data; *c; c++) {
-		if(*c == rexp) {
-			index = i;
-		}
-	i++;                        
+	for(c = data; *c; c++,i++) {
+		if(*c == rexp)
+			index = i;                          
 	}
 	return index;
         
@@ -74,21 +67,26 @@ int StrLastIndexOf(char *data, char rexp) {
 
 char* StrSubstring(char *data, int start, int end) {
 	int i = end - start;
-	char *new = malloc(i * 1024);
+	char *new = malloc(i);
 	if(i>=0) {
 		memcpy(new, &data[start], i);
-			return new;
-        }
-		else
-        	return NULL;
+		return new;
+	}
+	else
+		return STR_NULL;
 }
 
 void StrReplace(char *data, char old_rexp, char new_rexp) {        
 	char *i;
 	for(i=data;*i; i++) {
-	if(*i == old_rexp)
-		*i = new_rexp;
-	}
-        
+		if(*i == old_rexp)
+			*i = new_rexp;
+	}        
 }
 
+void StrFree(string *data) {
+	if(data->data) {
+		free(data->data);
+		data->length = -1;
+	}
+}
