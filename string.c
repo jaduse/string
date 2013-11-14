@@ -12,6 +12,7 @@ int StrSetdata(string *data, char *new_data);
 int StrLen(char *data);
 int StrIndexOf(char *data, char rexp);
 int StrLastIndexOf(char *data, char rexp);
+int StrCompare(char *first, char *second);
 char* StrSubstring(char *data, int start, int end);
 void StrReplace(char *data, char old_rexp, char new_rexp);
 void StrFree(string *data);
@@ -63,6 +64,20 @@ int StrLastIndexOf(char *data, char rexp) {
 	return index;
         
 
+}
+
+int StrCompare(char *first, char *second) {
+	int i;
+	char *c1, *c2;
+	int len1 = StrLen(first);
+	int len2 = StrLen(second);
+	int diff = len1 - len2 < 0 ? len2 - len1 : len1 - len2;
+	for(c1 = first, c2 = second; *c1 && *c2; c1++, c2++) {
+		if(*c2 != *c1)
+			diff++;
+	}
+	
+	return diff;
 }
 
 char* StrSubstring(char *data, int start, int end) {
